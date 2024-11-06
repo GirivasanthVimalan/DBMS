@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Resource Request</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Submit Resource Request</h2>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-info">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('submit_request') }}" method="POST">
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select class="form-control" id="priority" name="priority" required>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="required_date">Required Date</label>
+                <input type="date" class="form-control" id="required_date" name="required_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="return_date">Return Date</label>
+                <input type="date" class="form-control" id="return_date" name="return_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="resource_id">Resource</label>
+                <select class="form-control" id="resource_id" name="resource_id" required>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+            <a href="{{ url_for('staff_dashboard') }}" class="btn btn-secondary ml-2">Back to Dashboard</a>
+        </form>
+    </div>
+</body>
+</html>
