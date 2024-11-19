@@ -1,0 +1,88 @@
+<!-- templates/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Admin Dashboard</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-info">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+        
+        <a href="{{ url_for('logout') }}" class="btn btn-danger float-right">Logout</a>
+        
+        <!-- Button to open Add Staff modal -->
+        <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#addStaffModal">
+            Add New Staff
+        </button>
+
+        <!-- Add Staff Modal -->
+        <div class="modal fade" id="addStaffModal" tabindex="-1" aria-labelledby="addStaffModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addStaffModalLabel">Add New Staff</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ url_for('add_staff') }}" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="staff_id">Staff ID</label>
+                                <input type="text" class="form-control" id="staff_id" name="staff_id" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <input type="text" class="form-control" id="department" name="department" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Phone Number</label>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Staff</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Table -->
+        <h3 class="mt-4">Pending Requests</h3>
+        <table class="table table-bordered">
+            <!-- Table headers and data as previously defined -->
+        </table>
+
+        <!-- Allocation Details Table -->
+        <h3>Allocation Details</h3>
+        <table class="table table-bordered">
+            <!-- Table headers and data as previously defined -->
+        </table>
+    </div>
+
+    <!-- Bootstrap and jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

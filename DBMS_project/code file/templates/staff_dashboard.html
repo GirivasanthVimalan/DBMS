@@ -1,0 +1,109 @@
+<!-- templates/staff_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Staff Dashboard</h2>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('logout') }}" class="btn btn-danger float-right">Logout</a>
+
+        <h3 class="mt-4">Your Requests</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Request Date</th>
+                    <th>Priority</th>
+                    <th>Required Date</th>
+                    <th>Return Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.request_id }}</td>
+                        <td>{{ request.request_date }}</td>
+                        <td>{{ request.priority }}</td>
+                        <td>{{ request.required_date }}</td>
+                        <td>{{ request.return_date }}</td>
+                        <td>{{ request.request_status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Resource Allocation Details</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Allocation ID</th>
+                    <th>Resource ID</th>
+                    <th>Resource Name</th>
+                    <th>Allocation Date</th>
+                    <th>Return Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for allocation in allocations %}
+                    <tr>
+                        <td>{{ allocation.allocation_id }}</td>
+                        <td>{{ allocation.resource_id }}</td>
+                        <td>{{ allocation.resource_name }}</td>
+                        <td>{{ allocation.allocation_date }}</td>
+                        <td>{{ allocation.return_date }}</td>
+                        <td>{{ allocation.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 class="mt-4">Submit New Resource Request</h3>
+        <form action="{{ url_for('submit_request') }}" method="POST">
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select class="form-control" id="priority" name="priority" required>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="required_date">Required Date</label>
+                <input type="date" class="form-control" id="required_date" name="required_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="return_date">Return Date</label>
+                <input type="date" class="form-control" id="return_date" name="return_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="resource_id">Resource</label>
+                <select class="form-control" id="resource_id" name="resource_id" required>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+        </form>
+    </div>
+</body>
+</html>

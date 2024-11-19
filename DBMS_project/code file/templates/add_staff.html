@@ -1,0 +1,42 @@
+<!-- templates/add_staff.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Staff</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add Staff</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-info">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('add_staff') }}">
+            <div class="form-group">
+                <label for="staff_id">Staff ID</label>
+                <input type="text" class="form-control" id="staff_id" name="staff_id" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" class="form-control" id="department" name="department" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Staff</button>
+        </form>
+    </div>
+</body>
+</html>
